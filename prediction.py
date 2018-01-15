@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import mpl_toolkits
 from sklearn.linear_model import LinearRegression
-from sklearn import datasets ## imports datasets from scikit-learn
+from sklearn import datasets, linear_model  ## imports datasets from scikit-learn
 from sklearn.model_selection import train_test_split
 from sklearn import ensemble
 
@@ -43,11 +43,22 @@ x_train, x_test, y_train, y_test = train_test_split(train1, labels, test_size=0.
 reg.fit(x_train,y_train)
 LinearRegression (copy_X=True, fit_intercept=True,n_jobs=1,normalize=False)
 accuracy_score = reg.score(x_test, y_test)
+
+# print ('Ratio:train:test',x_train.shape, x_test.shape)
 print ("Raw Score",accuracy_score)
 
 ###################################################
 
 gradboosted = ensemble.GradientBoostingRegressor(n_estimators=400, max_depth=5, min_samples_split=2,learning_rate=0.08, loss='ls')
 gradboosted.fit(x_train,y_train)
-boosted_score = gradboosted.score(x_test,y_test)
-print ("Boosted Score",boosted_score)
+print (gradboosted.predict(x_test))
+
+# boosted_score = gradboosted.score(x_test,y_test)
+# print("Boosted Score",boosted_score)
+
+
+
+
+
+###################################################
+
