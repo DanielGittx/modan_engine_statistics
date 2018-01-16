@@ -34,12 +34,12 @@ sns.despine()
 reg = LinearRegression()
 ###################################################
 
-labels = data['price']
+labels = data['bedrooms']
 conv_dates = [1 if values == 2014 else 0 for values in data.date]
 data['date'] = conv_dates
-train1 = data.drop(['id', 'price'], axis=1)
+train1 = data.drop(['id', 'bedrooms'], axis=1)  #drop/ignore 'id' and 'price' columns (train1 has no 'id' and 'price')
 
-x_train, x_test, y_train, y_test = train_test_split(train1, labels, test_size=0.10, random_state=2)
+x_train, x_test, y_train, y_test = train_test_split(train1, labels, test_size=0.10, random_state=2)   #test_size - train:test ratio
 reg.fit(x_train,y_train)
 LinearRegression (copy_X=True, fit_intercept=True,n_jobs=1,normalize=False)
 accuracy_score = reg.score(x_test, y_test)
@@ -51,10 +51,10 @@ print ("Raw Score",accuracy_score)
 
 gradboosted = ensemble.GradientBoostingRegressor(n_estimators=400, max_depth=5, min_samples_split=2,learning_rate=0.08, loss='ls')
 gradboosted.fit(x_train,y_train)
-print (gradboosted.predict(x_test))
+print (gradboosted.predict(x_test[0:10]))
 
-# boosted_score = gradboosted.score(x_test,y_test)
-# print("Boosted Score",boosted_score)
+boosted_score = gradboosted.score(x_test,y_test)
+print("Boosted Score",boosted_score)
 
 
 
